@@ -1,3 +1,51 @@
+# YouTube Data Analysis Project with AWS
+
+This project utilizes a variety of technologies and services to gather, store, and analyze data from YouTube channels. Here's a detailed workflow of the project:
+
+## Data Collection
+
+The **YouTube API** was used to fetch data from certain YouTube channels. For each channel, the following statistics were gathered:
+
+- Total views
+- Number of subscribers
+- Video count
+
+These data were collected using a custom Python function called `get_stats`, which takes an API key and a channel ID as parameters.
+
+## Data Processing and Storage
+
+The gathered data were processed using **AWS Lambda** and **EventBridge**. A Lambda function was created that triggers in response to a specific event. This function performs the following tasks:
+
+1. Retrieves a CSV file from an S3 bucket that contains the IDs of the YouTube channels.
+2. Uses the `channels_stats` function to gather the statistics for each channel.
+3. Saves the results in a new CSV file.
+4. Uploads the CSV file to an S3 bucket.
+
+The code for this Lambda function is located in the `lambda_handler.py` file.
+
+## Data Analysis
+
+Once the data are stored in S3, **Amazon Athena** and **Amazon Glue** are used to analyze them. Amazon Glue is used to catalog the data and make them available for queries, while Amazon Athena allows SQL queries to be performed on the stored data.
+
+Several SQL queries were performed to analyze the statistics of the YouTube channels. These queries provide valuable insights into the growth and performance of the channels over time.
+
+## SQL Queries
+
+The SQL queries that were performed are as follows:
+
+1. **Query 1**: This query selects all data from the "youtube_stats_demo" table in the "channel_stats" schema where the channel name is 'PeladoNerd'.
+
+2. **Query 2**: This query creates a temporary table named `STATS` that includes a row for each record of the 'Fazt_web' channel, along with the previous record's `subscribers`, `video_count`, and `total_views`. It then selects the `channel_name`, `total_views`, `prev_viewsc`, and calculates the percentage change in views between the current and previous record.
+
+3. **Final Query**: This query is similar to Query 2 but also calculates the change in `subscribers` and `video_count` in addition to `total_views`. It provides the absolute change (`qty_susc`, `qty_videos`, `qty_views`) and the percentage growth (`grow_susc`, `grow_videos`, `grow_views`) for each of these metrics.
+
+These queries can provide valuable insights into the growth and performance of the YouTube channel 'Fazt_web' over time.
+
+## Summary
+
+This project demonstrates how various technologies and services can be used to gather, process, store, and analyze large amounts of data efficiently. Although this project focused on YouTube data, the workflow could easily be adapted to work with other types of data and data sources.
+
+=======================================================
 # Proyecto de Análisis de Datos de YouTube con AWS
 
 Este proyecto utiliza una variedad de tecnologías y servicios para recopilar, almacenar y analizar datos de canales de YouTube. A continuación, se detalla el flujo de trabajo del proyecto:
