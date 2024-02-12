@@ -91,3 +91,4 @@ def lambda_handler(event, context):
     os.remove(f'/tmp/youtube_stats_{date}.csv')
 
     return f'file youtube_stats_{date}.csv send succeded'
+#>
