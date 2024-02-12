@@ -93,5 +93,3 @@ def lambda_handler(event, context):
     return f'file youtube_stats_{date}.csv send succeded'
 ###
 ######hola
-
-## KEVIN GUZMAN HUAMANI ##
